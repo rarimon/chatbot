@@ -16,7 +16,7 @@
     // আইফ্রেম তৈরি
     const iframe = document.createElement('iframe');
     iframe.className = 'chat-frame';
-    iframe.src = 'YOUR_HOSTED_URL_HERE';
+    iframe.src = 'https://chatbot-sepia-sigma-28.vercel.app/';
     document.body.appendChild(iframe);
 
     // ক্লিক ইভেন্ট
