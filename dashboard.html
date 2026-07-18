@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; display: flex; justify-content: center; padding-top: 50px; }
+        .container { width: 100%; max-width: 500px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        h2 { color: #1e293b; margin-top: 0; }
+        label { font-weight: 600; color: #475569; }
+        input { width: 100%; margin: 10px 0 20px 0; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer; }
+        textarea { width: 100%; height: 120px; margin-top: 10px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f1f5f9; font-family: monospace; font-size: 13px; resize: none; }
+        .btn-group { display: flex; gap: 10px; }
+        button { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.3s; }
+        .btn-gen { background: #6366f1; color: white; }
+        .btn-copy { background: #10b981; color: white; }
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>ড্যাশবোর্ড</h2>
+
+    <label>বট প্রাইমারি কালার:</label>
+    <input type="color" id="colorPicker" value="#667eea" oninput="generateCode()">
+
+    <div class="btn-group">
+        <button class="btn-gen" onclick="generateCode()">কোড আপডেট করুন</button>
+        <button class="btn-copy" onclick="copyCode()">কোড কপি করুন</button>
+    </div>
+
+    <h3 style="margin-top: 25px;">আপনার এম্বেড কোড:</h3>
+    <textarea id="embedCode" readonly></textarea>
+</div>
+
+<script>
+    function generateCode() {
+        const color = document.getElementById('colorPicker').value;
+        // আপনার লাইভ লিঙ্কের সাথে কোডটি সেট করা
+        const code = `<script>window.botColor = "${color}";<\/script>
+<script src="https://chatbot-sepia-sigma-28.vercel.app/widget.js"><\/script>`;
+        document.getElementById('embedCode').value = code;
+    }
+
+    function copyCode() {
+        const textArea = document.getElementById('embedCode');
+        textArea.select();
+        document.execCommand('copy');
+        alert("কোডটি কপি হয়েছে!");
+    }
+
+    // পেজ লোড হওয়ার সাথে সাথে কোড জেনারেট হবে
+    window.onload = generateCode;
+</script>
+</body>
+</html>
