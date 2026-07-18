@@ -1,8 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* টেক্সট ডিজাইন ও অ্যানিমেশন */
+        .hero-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: sans-serif;
+            text-align: center;
+
+            /* গ্রেডিয়েন্ট কালার */
+            background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            /* অ্যানিমেশন */
+            animation: gradient-flow 3s linear infinite;
+        }
+
+        @keyframes gradient-flow {
+            to { background-position: 200% center; }
+        }
+    </style>
+</head>
 <body>
 
+<!-- টেক্সট যোগ করা হলো -->
+<div class="hero-text">
+    OnnoRokom Bigganbaksho Demo Chat
+</div>
 
-    <script src="https://chatbot-sepia-sigma-28.vercel.app/widget.js"></script>
+<!-- চ্যাট উইজেট -->
+<script src="https://chatbot-sepia-sigma-28.vercel.app/widget.js"></script>
 </body>
 </html>
