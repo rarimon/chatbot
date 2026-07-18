@@ -22,7 +22,7 @@
     <div id="chat-header">RA Technology AI</div>
     <div id="messages"></div>
     <div id="input-area">
-        <input type="text" id="userInput" placeholder="আপনার প্রশ্ন লিখুন...">
+        <input type="text" id="userInput" placeholder="আপনার প্রশ্ন লিখুন..." onkeypress="if(event.key === 'Enter') send()">
         <button onclick="send()">➤</button>
     </div>
 </div>
@@ -31,21 +31,25 @@
     async function send() {
         const input = document.getElementById('userInput');
         const messages = document.getElementById('messages');
-        if (!input.value) return;
+        if (!input.value.trim()) return;
 
+        // ইউজারের মেসেজ দেখানো
         messages.innerHTML += `<div class="msg user">${input.value}</div>`;
         const userText = input.value;
         input.value = '';
+        messages.scrollTop = messages.scrollHeight;
 
         try {
-            // এখানে আপনার n8n Webhook URL টি দিন
             const response = await fetch('https://n8n-production-fa465.up.railway.app/webhook-test/77468a73-41b3-41be-869c-16cad0bcfc19', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: userText })
             });
-            const data = await response.json();
-            messages.innerHTML += `<div class="msg ai">${data.output || 'উত্তর পাওয়া যায়নি'}</div>`;
+
+            // রেসপন্সটি টেক্সট হিসেবে পড়া হচ্ছে
+            const aiText = await response.text();
+
+            messages.innerHTML += `<div class="msg ai">${aiText || 'উত্তর পাওয়া যায়নি'}</div>`;
         } catch (e) {
             messages.innerHTML += `<div class="msg ai">সার্ভার কানেকশন এরর!</div>`;
         }
