@@ -1,5 +1,5 @@
 (function() {
-    // ১. স্টাইল ইনজেক্ট করা
+    // স্টাইল ইনজেক্ট করা
     const style = document.createElement('style');
     style.innerHTML = `
         .chat-btn { 
@@ -18,8 +18,21 @@
             align-items: center;
             justify-content: center;
             transition: transform 0.3s ease;
+            /* অ্যানিমেশন কোড */
+            animation: pulse-animation 2s infinite;
         }
-        .chat-btn:hover { transform: scale(1.1); }
+        
+        /* পালস অ্যানিমেশন ইফেক্ট */
+        @keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0 rgba(118, 75, 162, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(118, 75, 162, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(118, 75, 162, 0); }
+        }
+
+        .chat-btn:hover { 
+            transform: scale(1.1); 
+            animation: none; /* হভার করলে অ্যানিমেশন থামবে */
+        }
         
         .chat-frame { 
             display: none; 
@@ -30,27 +43,23 @@
             height: 580px; 
             border: none; 
             z-index: 999998; 
-            background: transparent !important; /* এটি ব্যাকগ্রাউন্ড ট্রান্সপারেন্ট করবে */
+            background: transparent !important; 
             overflow: hidden;
         }
     `;
     document.head.appendChild(style);
 
-    // ২. বাটন তৈরি
     const btn = document.createElement('div');
     btn.className = 'chat-btn';
     btn.innerHTML = '💬';
     document.body.appendChild(btn);
 
-    // ৩. আইফ্রেম তৈরি
     const iframe = document.createElement('iframe');
     iframe.className = 'chat-frame';
     iframe.src = 'https://chatbot-sepia-sigma-28.vercel.app/';
-    // আইফ্রেমের নিজস্ব ডিফল্ট বর্ডার বন্ধ রাখা
     iframe.setAttribute('allowtransparency', 'true');
     document.body.appendChild(iframe);
 
-    // ৪. ক্লিক লজিক
     btn.onclick = () => {
         iframe.style.display = (iframe.style.display === 'block') ? 'none' : 'block';
     };
