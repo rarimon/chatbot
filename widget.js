@@ -1,4 +1,5 @@
 (function() {
+    // ১. স্টাইল ইনজেক্ট করা
     const style = document.createElement('style');
     style.innerHTML = `
         .chat-btn { 
@@ -29,23 +30,27 @@
             height: 580px; 
             border: none; 
             z-index: 999998; 
-            /* শ্যাডো সরিয়ে ফেলেছি কারণ index.html নিজেই শ্যাডো দিচ্ছে */
-            box-shadow: none; 
-            background: transparent; 
+            background: transparent !important; /* এটি ব্যাকগ্রাউন্ড ট্রান্সপারেন্ট করবে */
+            overflow: hidden;
         }
     `;
     document.head.appendChild(style);
 
+    // ২. বাটন তৈরি
     const btn = document.createElement('div');
     btn.className = 'chat-btn';
     btn.innerHTML = '💬';
     document.body.appendChild(btn);
 
+    // ৩. আইফ্রেম তৈরি
     const iframe = document.createElement('iframe');
     iframe.className = 'chat-frame';
     iframe.src = 'https://chatbot-sepia-sigma-28.vercel.app/';
+    // আইফ্রেমের নিজস্ব ডিফল্ট বর্ডার বন্ধ রাখা
+    iframe.setAttribute('allowtransparency', 'true');
     document.body.appendChild(iframe);
 
+    // ৪. ক্লিক লজিক
     btn.onclick = () => {
         iframe.style.display = (iframe.style.display === 'block') ? 'none' : 'block';
     };
