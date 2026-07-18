@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RA Technology AI</title>
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: transparent; }
+        #chat-container { width: 350px; height: 500px; background: #fff; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #ddd; }
+        #chat-header { background: #6366f1; color: white; padding: 15px; font-weight: bold; font-size: 16px; }
+        #messages { flex: 1; padding: 15px; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 10px; }
+        .msg { padding: 10px 15px; border-radius: 12px; font-size: 14px; max-width: 80%; }
+        .user { background: #6366f1; color: white; align-self: flex-end; }
+        .ai { background: #e2e8f0; color: #333; align-self: flex-start; }
+        #input-area { padding: 10px; display: flex; border-top: 1px solid #eee; background: white; }
+        input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
+        button { background: #6366f1; color: white; border: none; padding: 8px 15px; border-radius: 5px; margin-left: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+<div id="chat-container">
+    <div id="chat-header">RA Technology AI</div>
+    <div id="messages"></div>
+    <div id="input-area">
+        <input type="text" id="userInput" placeholder="আপনার প্রশ্ন লিখুন...">
+        <button onclick="send()">➤</button>
+    </div>
+</div>
+
+<script>
+    async function send() {
+        const input = document.getElementById('userInput');
+        const messages = document.getElementById('messages');
+        if (!input.value) return;
+
+        messages.innerHTML += `<div class="msg user">${input.value}</div>`;
+        const userText = input.value;
+        input.value = '';
+
+        try {
+            // এখানে আপনার n8n Webhook URL টি দিন
+            const response = await fetch('YOUR_N8N_WEBHOOK_URL', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userText })
+            });
+            const data = await response.json();
+            messages.innerHTML += `<div class="msg ai">${data.output || 'উত্তর পাওয়া যায়নি'}</div>`;
+        } catch (e) {
+            messages.innerHTML += `<div class="msg ai">সার্ভার কানেকশন এরর!</div>`;
+        }
+        messages.scrollTop = messages.scrollHeight;
+    }
+</script>
+</body>
+</html>
