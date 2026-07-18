@@ -1,5 +1,5 @@
 (function() {
-    // ১. স্টাইল ইনজেক্ট করা (নতুন প্রিমিয়াম ডিজাইনের সাথে মিল রেখে)
+    // ১. স্টাইল ইনজেক্ট করা
     const style = document.createElement('style');
     style.innerHTML = `
         .chat-btn { 
@@ -8,12 +8,15 @@
             right: 25px; 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
             color: white; 
-            padding: 18px; 
+            padding: 15px; 
             border-radius: 50%; 
             cursor: pointer; 
             font-size: 24px; 
             box-shadow: 0 6px 20px rgba(118, 75, 162, 0.4); 
-            z-index: 10000; 
+            z-index: 999999; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: transform 0.3s ease;
         }
         .chat-btn:hover { transform: scale(1.1); }
@@ -21,22 +24,16 @@
         .chat-frame { 
             display: none; 
             position: fixed; 
-            bottom: 100px; 
+            bottom: 90px; 
             right: 25px; 
             width: 360px; 
             height: 580px; 
             border: none; 
-            z-index: 10000; 
+            z-index: 999998; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
             border-radius: 20px; 
             background: white; 
             overflow: hidden;
-            animation: slideUp 0.3s ease-out;
-        }
-        
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
     `;
     document.head.appendChild(style);
