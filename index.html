@@ -26,9 +26,9 @@
             overflow: hidden;
             border-radius: 20px;
             border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
-        /* মোবাইলে ফুল স্ক্রিন হওয়ার জন্য কন্টেইনার অ্যাডজাস্টমেন্ট */
         @media (max-width: 480px) {
             #chat-container {
                 border-radius: 0;
@@ -40,7 +40,7 @@
         #chat-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 14px 18px;
+            padding: 16px 20px;
             font-weight: 700;
             font-size: 16px;
             display: flex;
@@ -88,22 +88,22 @@
             margin-top: 5px;
         }
 
-        /* টাইপিং অ্যানিমেশন */
         .typing-indicator { display: flex; align-items: center; gap: 4px; padding: 10px 14px; background: #ffffff; border-radius: 14px; border: 1px solid #e2e8f0; align-self: flex-start; }
         .typing-dot { width: 7px; height: 7px; background-color: #94a3b8; border-radius: 50%; animation: blink 1.4s infinite both; }
         .typing-dot:nth-child(2) { animation-delay: 0.2s; }
         .typing-dot:nth-child(3) { animation-delay: 0.4s; }
         @keyframes blink { 0% { opacity: 0.2; } 20% { opacity: 1; } 100% { opacity: 0.2; } }
 
-        /* ইনপুট ও ফাইল আপলোড এরিয়া */
         #input-area {
-            padding: 12px;
+            padding: 12px 15px;
             display: flex;
             align-items: center;
             border-top: 1px solid #e2e8f0;
             background: white;
-            gap: 8px;
+            gap: 10px;
             flex-shrink: 0;
+            position: relative;
+            z-index: 10;
         }
 
         input[type="text"] {
@@ -113,12 +113,17 @@
             border-radius: 25px;
             outline: none;
             font-size: 14px;
+            background: #ffffff;
+        }
+
+        input[type="text"]:focus {
+            border-color: #667eea;
         }
 
         .upload-btn-wrapper {
             position: relative;
             overflow: hidden;
-            display: inline-block;
+            display: inline-flex;
             cursor: pointer;
         }
 
@@ -238,7 +243,7 @@
             });
 
             hideTyping();
-            const aiText = @json ? await response.text() : await response.text();
+            const aiText = await response.text();
             messages.innerHTML += `<div class="msg ai">${aiText || 'উত্তর পাওয়া যায়নি'}</div>`;
         } catch (e) {
             hideTyping();
