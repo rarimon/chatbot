@@ -2,10 +2,10 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OnnoRokom Bigganbaksho</title>
     <style>
-        /* ফিক্সড: বডি যেন পুরো উইন্ডো জুড়ে সঠিক মার্জিনে থাকে */
+        * { box-sizing: border-box; }
         body {
             margin: 0;
             padding: 0;
@@ -26,18 +26,27 @@
             overflow: hidden;
             border-radius: 20px;
             border: 1px solid #e2e8f0;
-            box-sizing: border-box;
+        }
+
+        /* মোবাইলে ফুল স্ক্রিন হওয়ার জন্য কন্টেইনার অ্যাডজাস্টমেন্ট */
+        @media (max-width: 480px) {
+            #chat-container {
+                border-radius: 0;
+                border: none;
+                height: 100vh;
+            }
         }
 
         #chat-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 16px 20px;
+            padding: 14px 18px;
             font-weight: 700;
             font-size: 16px;
             display: flex;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex-shrink: 0;
         }
 
         #chat-header::before {
@@ -58,6 +67,7 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+            -webkit-overflow-scrolling: touch;
         }
 
         .msg {
@@ -93,6 +103,7 @@
             border-top: 1px solid #e2e8f0;
             background: white;
             gap: 8px;
+            flex-shrink: 0;
         }
 
         input[type="text"] {
@@ -104,7 +115,6 @@
             font-size: 14px;
         }
 
-        /* ফাইল আপলোড আইকন বাটন */
         .upload-btn-wrapper {
             position: relative;
             overflow: hidden;
@@ -134,6 +144,7 @@
             justify-content: center;
             font-size: 16px;
             transition: background 0.2s;
+            flex-shrink: 0;
         }
 
         .file-icon:hover, .send-btn:hover {
@@ -152,7 +163,6 @@
     <div id="chat-header">Bigganbaksho Support</div>
     <div id="messages"></div>
     <div id="input-area">
-        <!-- ফাইল বা ইমেজ আপলোড অপশন -->
         <div class="upload-btn-wrapper" title="ছবি বা ফাইল আপলোড করুন">
             <button class="file-icon">📎</button>
             <input type="file" id="fileInput" accept="image/*" onchange="handleFileUpload(event)">
@@ -228,7 +238,7 @@
             });
 
             hideTyping();
-            const aiText = await response.text();
+            const aiText = @json ? await response.text() : await response.text();
             messages.innerHTML += `<div class="msg ai">${aiText || 'উত্তর পাওয়া যায়নি'}</div>`;
         } catch (e) {
             hideTyping();

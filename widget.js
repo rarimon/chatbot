@@ -1,18 +1,17 @@
 (function() {
-    // স্টাইল ইনজেক্ট করা
     const style = document.createElement('style');
     style.innerHTML = `
         .chat-btn { 
             position: fixed; 
-            bottom: 25px; 
-            right: 25px; 
+            bottom: 20px; 
+            right: 20px; 
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
             color: white; 
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%; 
             cursor: pointer; 
-            font-size: 26px; 
+            font-size: 24px; 
             box-shadow: 0 6px 20px rgba(0,0,0,0.25); 
             z-index: 999999; 
             display: flex;
@@ -36,16 +35,31 @@
         .chat-frame { 
             display: none; 
             position: fixed; 
-            bottom: 95px; 
-            right: 25px; 
+            bottom: 85px; 
+            right: 20px; 
             width: 380px; 
-            height: 600px; 
+            height: 580px; 
             border: none; 
             z-index: 999998; 
             background: transparent !important; 
             overflow: hidden;
             border-radius: 20px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* মোবাইল বা ছোট ডিভাইসের জন্য রেসপন্সিভ স্টাইল */
+        @media (max-width: 480px) {
+            .chat-frame {
+                width: 100% !important;
+                height: 100% !important;
+                bottom: 0 !important;
+                right: 0 !important;
+                left: 0 !important;
+                top: 0 !important;
+                border-radius: 0 !important;
+                box-shadow: none;
+            }
         }
     `;
     document.head.appendChild(style);
